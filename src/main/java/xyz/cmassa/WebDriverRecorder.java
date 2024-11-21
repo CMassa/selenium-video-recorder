@@ -11,10 +11,13 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class WebDriverRecorder implements Runnable {
 
-    private static final long DEFAULT_FRAME_RATE = 10; // 100 FPS;
+    private static final Logger logger = Logger.getLogger(WebDriverRecorder.class.getName());
+    private static final long DEFAULT_FRAME_RATE = 10;
     private static final String SCREENSHOT_DATE_FORMAT = "yyyyMMdd_HHmmssSSS";
 
     private final WebDriver driver;
@@ -33,7 +36,7 @@ public class WebDriverRecorder implements Runnable {
     }
 
     public WebDriverRecorder(WebDriver driver, String recordingsDestination) {
-        this(driver, DEFAULT_FRAME_RATE, null);
+        this(driver, DEFAULT_FRAME_RATE, recordingsDestination);
     }
 
     public WebDriverRecorder(WebDriver driver, long frameRate) {
@@ -43,14 +46,10 @@ public class WebDriverRecorder implements Runnable {
     public WebDriverRecorder(WebDriver driver, long frameRate, String recordingsDestination) {
         this.driver = driver;
         this.frameRate = frameRate;
-        this.recordingsDestination = getRecordingsDestination();
-        this.renderer = new Renderer();
-    }
-
-    private String getRecordingsDestination() {
-        return (recordingsDestination == null || recordingsDestination.isEmpty())
+        this.recordingsDestination = (recordingsDestination == null || recordingsDestination.isEmpty())
                 ? System.getProperty("video.destination", getDefaultRecordingsDestination())
                 : recordingsDestination;
+        this.renderer = new Renderer();
     }
 
     private String getDefaultRecordingsDestination() {
@@ -99,8 +98,8 @@ public class WebDriverRecorder implements Runnable {
 
         File recordingsDestinationFolder = new File(recordingPath);
         if (!recordingsDestinationFolder.exists()) {
-            recordingsDestinationFolder.mkdirs();
-            System.out.println("Created " + recordingPath + " recording");
+            boolean created = recordingsDestinationFolder.mkdirs();
+            if (created) logger.log(Level.INFO, "Created {0} recording", recordingPath);
         }
 
         while (running) {
@@ -108,7 +107,8 @@ public class WebDriverRecorder implements Runnable {
             try {
                 TimeUnit.MILLISECONDS.sleep(frameRate);
             } catch (InterruptedException e) {
-                System.out.println("Screenshot thread interrupted");
+                logger.log(Level.SEVERE, "WebDriver recorder thread interrupted");
+                Thread.currentThread().interrupt();
             }
         }
     }
@@ -121,7 +121,7 @@ public class WebDriverRecorder implements Runnable {
         try {
             FileUtils.copyFile(screenshotFile, destinationFile);
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.log(Level.SEVERE, "Error while taking frame screenshot", e);
         }
     }
 }
