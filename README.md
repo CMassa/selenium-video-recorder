@@ -15,7 +15,7 @@ Add the following dependency to your `pom.xml`:
 
 ```xml
 <dependency>
-    <groupId>xyz.cmassa</groupId>
+    <groupId>io.github.cmassa</groupId>
     <artifactId>selenium-video-recorder</artifactId>
     <version>1.0.0</version>
 </dependency>
