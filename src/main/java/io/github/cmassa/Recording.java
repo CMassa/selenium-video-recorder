@@ -1,4 +1,4 @@
-package xyz.cmassa;
+package io.github.cmassa;
 
 import java.util.UUID;
 

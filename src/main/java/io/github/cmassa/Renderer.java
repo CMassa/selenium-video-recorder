@@ -1,4 +1,4 @@
-package xyz.cmassa;
+package io.github.cmassa;
 
 import org.bytedeco.ffmpeg.global.avcodec;
 import org.bytedeco.javacv.FFmpegFrameRecorder;
