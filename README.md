@@ -97,12 +97,7 @@ public class MyTest {
 ### Allure
 
 ```java
-public class UIExecutionCallbacks implements AfterTestExecutionCallback {
-    
-    @Override
-    public void afterTestExecution(ExtensionContext extensionContext) {
-        
-    }
-    
-}
+    String videoPath = recorder.stop();
+    File videoFile = new File(videoPath);
+    Allure.addAttachment("Test video", "video/mp4", Files.asByteSource(videoFile).openStream(), "mp4");
 ```
