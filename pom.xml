@@ -6,12 +6,30 @@
 
     <groupId>io.github.cmassa</groupId>
     <artifactId>selenium-video-recorder</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.0</version>
+    <packaging>jar</packaging>
 
     <name>${project.groupId}:${project.artifactId}</name>
     <description>Utility for recording video from Selenium Driver sessions</description>
     <url>https://github.com/CMassa/selenium-video-recorder</url>
-
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>http://www.opensource.org/licenses/mit-license.php</url>
+        </license>
+    </licenses>
+    <developers>
+        <developer>
+            <id>CMassa</id>
+            <name>Carlos Massa</name>
+            <url>https://github.com/CMassa</url>
+        </developer>
+    </developers>
+    <scm>
+        <connection>scm:git:git://github.com/CMassa/selenium-video-recorder.git</connection>
+        <developerConnection>scm:git:ssh://github.com:CMassa/selenium-video-recorder.git</developerConnection>
+        <url>http://github.com/CMassa/selenium-video-recorder/tree/master</url>
+    </scm>
 
     <properties>
         <!-- Java version -->
@@ -36,27 +54,6 @@
         <maven.javadoc.version>3.11.2</maven.javadoc.version>
         <maven.gpg.version>3.2.7</maven.gpg.version>
     </properties>
-
-    <licenses>
-        <license>
-            <name>MIT License</name>
-            <url>http://www.opensource.org/licenses/mit-license.php</url>
-        </license>
-    </licenses>
-
-    <developers>
-        <developer>
-            <id>CMassa</id>
-            <name>Carlos Massa</name>
-            <url>https://github.com/CMassa</url>
-        </developer>
-    </developers>
-
-    <scm>
-        <connection>scm:git:git://github.com/CMassa/selenium-video-recorder.git</connection>
-        <developerConnection>scm:git:ssh://github.com:CMassa/selenium-video-recorder.git</developerConnection>
-        <url>http://github.com/CMassa/selenium-video-recorder/tree/master</url>
-    </scm>
 
     <dependencies>
         <dependency>
@@ -95,6 +92,7 @@
                         <configuration>
                             <publishingServerId>central</publishingServerId>
                             <autoPublish>true</autoPublish>
+                            <waitUntil>uploaded</waitUntil>
                         </configuration>
                     </plugin>
                     <plugin>
