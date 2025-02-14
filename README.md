@@ -86,7 +86,7 @@ public class MyTest {
     
     
     @AfterEach
-    public void startDriver() {
+    public void stopDriver() {
         String videoPath = recorder.stop();
         driver.quit();
     }
